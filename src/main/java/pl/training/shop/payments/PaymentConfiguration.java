@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 public class PaymentConfiguration {
 
     @Bean
-    public PercentagePaymentFeeCalculator percentagePaymentFeeCalculator() {
+    public PaymentFeeCalculator percentagePaymentFeeCalculator() {
         return new PercentagePaymentFeeCalculator(0.01);
     }
 

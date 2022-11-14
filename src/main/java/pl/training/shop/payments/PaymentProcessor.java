@@ -1,11 +1,11 @@
 package pl.training.shop.payments;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.javamoney.moneta.FastMoney;
-import org.springframework.stereotype.Service;
 import pl.training.shop.time.TimeProvider;
 
-@Service
+@Log
 @RequiredArgsConstructor
 public class PaymentProcessor implements PaymentService {
 
@@ -32,6 +32,14 @@ public class PaymentProcessor implements PaymentService {
 
     private FastMoney calculatePaymentValue(FastMoney paymentValue) {
         return paymentValue.add(paymentFeeCalculator.calculateFee(paymentValue));
+    }
+
+    public void init() {
+        log.info("Initializing PaymentProcessor bean");
+    }
+
+    public void destroy() {
+        log.info("Destroying PaymentProcessor bean");
     }
 
 }

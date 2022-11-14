@@ -8,8 +8,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Order(1_00)
-@Aspect
-@Component
+//@Aspect
+//@Component
 @Log
 @RequiredArgsConstructor
 public class ConsolePaymentLogger {

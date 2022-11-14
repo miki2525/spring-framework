@@ -3,6 +3,8 @@ package pl.training.shop.payments;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.javamoney.moneta.FastMoney;
+import pl.training.shop.commons.aop.ExecutionTime;
+import pl.training.shop.commons.aop.Loggable;
 import pl.training.shop.time.TimeProvider;
 
 @Log
@@ -14,6 +16,8 @@ public class PaymentProcessor implements PaymentService {
     private final PaymentRepository paymentsRepository;
     private final TimeProvider timeProvider;
 
+    @ExecutionTime
+    //@Loggable
     @Override
     public Payment process(PaymentRequest paymentRequest) {
         var paymentValue = calculatePaymentValue(paymentRequest.getValue());

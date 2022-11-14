@@ -5,7 +5,18 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.METHOD, ElementType.TYPE})
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ExecutionTime {
+public @interface Lock {
+
+    String value() default "default";
+
+    LockType type() default LockType.WRITE;
+
+    enum LockType {
+
+        READ, WRITE
+
+    }
+
 }

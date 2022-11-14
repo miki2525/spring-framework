@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.javamoney.moneta.FastMoney;
 import pl.training.shop.commons.aop.ExecutionTime;
-import pl.training.shop.commons.aop.Loggable;
+import pl.training.shop.commons.aop.Lock;
+import pl.training.shop.commons.aop.MinLength;
+import pl.training.shop.commons.aop.Retry;
 import pl.training.shop.time.TimeProvider;
 
 @Log
@@ -16,6 +18,8 @@ public class PaymentProcessor implements PaymentService {
     private final PaymentRepository paymentsRepository;
     private final TimeProvider timeProvider;
 
+    @Lock
+    @Retry(attempts = 2)
     @ExecutionTime
     //@Loggable
     @Override
@@ -36,6 +40,12 @@ public class PaymentProcessor implements PaymentService {
 
     private FastMoney calculatePaymentValue(FastMoney paymentValue) {
         return paymentValue.add(paymentFeeCalculator.calculateFee(paymentValue));
+    }
+
+    @Override
+    public Payment getById(@MinLength String id) {
+        return paymentsRepository.getById(id)
+                .orElseThrow(PaymentNotFoundException::new);
     }
 
     public void init() {

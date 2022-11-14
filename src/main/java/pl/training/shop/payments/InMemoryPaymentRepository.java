@@ -1,10 +1,12 @@
 package pl.training.shop.payments;
 
 import lombok.Setter;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Repository
 public class InMemoryPaymentRepository implements PaymentRepository {
 
     @Setter

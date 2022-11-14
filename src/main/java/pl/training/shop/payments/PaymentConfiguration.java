@@ -21,7 +21,7 @@ public class PaymentConfiguration {
     }
 
     @Bean
-    public PercentagePaymentFeeCalculator percentagePaymentFeeCalculator() {
+    public PaymentFeeCalculator percentagePaymentFeeCalculator() {
         return new PercentagePaymentFeeCalculator(0.01);
     }
 
@@ -32,7 +32,7 @@ public class PaymentConfiguration {
 
     @Scope(BeanDefinition.SCOPE_SINGLETON) // default
     @Bean(name = "paymentService", initMethod = "init", destroyMethod = "destroy")
-    public PaymentProcessor paymentProcessor(@Qualifier("uuidPaymentIdGenerator") PaymentIdGenerator paymentIdGenerator, PercentagePaymentFeeCalculator paymentFeeCalculator,
+    public PaymentProcessor paymentProcessor(@Qualifier("uuidPaymentIdGenerator") PaymentIdGenerator paymentIdGenerator, PaymentFeeCalculator paymentFeeCalculator,
                                              PaymentRepository paymentRepository, TimeProvider timeProvider) {
         return new PaymentProcessor(paymentIdGenerator, paymentFeeCalculator, paymentRepository, timeProvider);
     }

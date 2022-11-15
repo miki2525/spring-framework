@@ -4,10 +4,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
-
-import java.lang.annotation.Annotation;
-import java.util.Arrays;
-import java.util.Optional;
+import pl.training.shop.commons.Annotations;
 
 import static pl.training.shop.commons.Annotations.getTargetMethod;
 
@@ -21,7 +18,7 @@ public class MinLengthValidator {
         var argumentsAnnotations = getTargetMethod(joinPoint).getParameterAnnotations();
         for (int index = 0; index < arguments.length; index++) {
             var argument = (String) arguments[index];
-            getLengthAnnotation(argumentsAnnotations[index])
+            Annotations.findAnnotation(argumentsAnnotations[index], MinLength.class)
                     .ifPresent(minLength -> validateLength(argument, minLength));
         }
     }
@@ -30,13 +27,6 @@ public class MinLengthValidator {
         if (argument.length() < minLength.value()) {
             throw new IllegalArgumentException("Value is too short, required length is: " + minLength.value());
         }
-    }
-
-    private Optional<MinLength> getLengthAnnotation(Annotation[] annotations) {
-        return Arrays.stream(annotations)
-                .filter(MinLength.class::isInstance)
-                .map(MinLength.class::cast)
-                .findFirst();
     }
 
 }

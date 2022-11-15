@@ -1,4 +1,6 @@
-package pl.training.shop.time;
+package pl.training.shop.payments.adapters.time;
+
+import pl.training.shop.payments.ports.TimeProvider;
 
 import java.time.Instant;
 

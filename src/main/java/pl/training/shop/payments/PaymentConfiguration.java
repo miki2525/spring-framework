@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import pl.training.shop.payments.domain.*;
 import pl.training.shop.payments.ports.PaymentRepository;
 import pl.training.shop.payments.ports.PaymentService;
-import pl.training.shop.time.TimeProvider;
+import pl.training.shop.payments.ports.TimeProvider;
 
 @Configuration
 public class PaymentConfiguration {

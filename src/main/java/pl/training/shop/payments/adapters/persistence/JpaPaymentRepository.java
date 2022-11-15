@@ -1,26 +1,17 @@
 package pl.training.shop.payments.adapters.persistence;
 
-import lombok.Setter;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.Optional;
+import java.math.BigDecimal;
 
-@Repository
-public class JpaPaymentRepository {
+public interface JpaPaymentRepository extends JpaRepository<PaymentEntity, String> {
 
-    @Setter
-    @PersistenceContext
-    private EntityManager entityManager;
+    Page<PaymentEntity> getByStatus(String status, Pageable pageable);
 
-    public PaymentEntity save(PaymentEntity payment) {
-        entityManager.persist(payment);
-        return payment;
-    }
-
-    public Optional<PaymentEntity> getById(String id) {
-        return Optional.ofNullable(entityManager.find(PaymentEntity.class, id));
-    }
+    @Query("select p from Payment p where p.status = 'COMPLETED' and p.value >= :value")
+    Page<PaymentEntity> getCompletedWithValue(/*@Param("value")*/ BigDecimal value, Pageable pageable);
 
 }

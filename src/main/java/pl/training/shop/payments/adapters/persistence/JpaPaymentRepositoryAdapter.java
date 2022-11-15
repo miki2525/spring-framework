@@ -25,7 +25,7 @@ public class JpaPaymentRepositoryAdapter implements PaymentRepository {
 
     @Override
     public Optional<PaymentDomain> getById(String id) {
-        return paymentRepository.getById(id)
+        return paymentRepository.findById(id)
                 .map(mapper::toDomain);
     }
 

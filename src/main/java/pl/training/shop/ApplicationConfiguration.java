@@ -6,18 +6,20 @@ import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import pl.training.shop.time.SystemTimeProvider;
-import pl.training.shop.time.TimeProvider;
+import pl.training.shop.payments.adapters.time.SystemTimeProvider;
+import pl.training.shop.payments.ports.TimeProvider;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @PropertySource("classpath:jdbc.properties")
+@EnableJpaRepositories
 @EnableTransactionManagement
 @EnableAspectJAutoProxy
 @ComponentScan

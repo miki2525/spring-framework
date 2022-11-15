@@ -7,7 +7,7 @@ import pl.training.shop.commons.aop.Atomic;
 import pl.training.shop.commons.aop.MinLength;
 import pl.training.shop.payments.ports.PaymentRepository;
 import pl.training.shop.payments.ports.PaymentService;
-import pl.training.shop.time.TimeProvider;
+import pl.training.shop.payments.ports.TimeProvider;
 
 @Atomic
 @Log

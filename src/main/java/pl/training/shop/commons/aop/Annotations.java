@@ -4,7 +4,10 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Optional;
 
 public class Annotations {
 
@@ -26,6 +29,13 @@ public class Annotations {
         var methodName = signature.getMethod().getName();
         var parameterTypes = signature.getMethod().getParameterTypes();
         return joinPoint.getTarget().getClass().getMethod(methodName, parameterTypes);
+    }
+
+    public static <T extends Annotation> Optional<T> findAnnotation(Annotation[] annotations, Class<T> type) {
+        return Arrays.stream(annotations)
+                .filter(type::isInstance)
+                .map(type::cast)
+                .findFirst();
     }
     
 }

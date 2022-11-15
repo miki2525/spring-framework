@@ -7,8 +7,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
-import java.util.Arrays;
-import java.util.Optional;
+
+import static pl.training.shop.commons.Annotations.findAnnotation;
 
 @Aspect
 @Component
@@ -20,7 +20,7 @@ public class MinLengthValidator {
         var argumentsAnnotations = getArgumentsAnnotations(joinPoint);
         for (int index = 0; index < arguments.length; index++) {
             var argument = (String) arguments[index];
-            getLengthAnnotation(argumentsAnnotations[index])
+            findAnnotation(argumentsAnnotations[index], MinLength.class)
                     .ifPresent(minLength -> validateLength(argument, minLength));
         }
     }
@@ -36,13 +36,6 @@ public class MinLengthValidator {
         var methodName = signature.getMethod().getName();
         var parameterTypes = signature.getMethod().getParameterTypes();
         return joinPoint.getTarget().getClass().getMethod(methodName, parameterTypes).getParameterAnnotations();
-    }
-
-    private Optional<MinLength> getLengthAnnotation(Annotation[] annotations) {
-        return Arrays.stream(annotations)
-                .filter(MinLength.class::isInstance)
-                .map(MinLength.class::cast)
-                .findFirst();
     }
 
 }

@@ -3,8 +3,11 @@ package pl.training.shop;
 import lombok.extern.java.Log;
 import org.javamoney.moneta.FastMoney;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import pl.training.shop.commons.data.Page;
 import pl.training.shop.payments.domain.PaymentRequestDomain;
 import pl.training.shop.payments.ports.PaymentService;
+
+import static pl.training.shop.payments.domain.PaymentStatusDomain.STARTED;
 
 @Log
 public class Application {
@@ -17,6 +20,7 @@ public class Application {
             var paymentRequest = new PaymentRequestDomain(1L, FastMoney.of(1_000, DEFAULT_CURRENCY_CODE));
             var payment = paymentService.process(paymentRequest);
             log.info(paymentService.getById(payment.getId()).toString());
+            log.info(paymentService.getByStatus(STARTED, new Page(0, 10)).toString());
         }
     }
 

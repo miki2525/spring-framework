@@ -1,7 +1,7 @@
 package pl.training.shop.payments.ports;
 
-import pl.training.shop.commons.Page;
-import pl.training.shop.commons.ResultPage;
+import pl.training.shop.commons.data.Page;
+import pl.training.shop.commons.data.ResultPage;
 import pl.training.shop.payments.domain.PaymentDomain;
 import pl.training.shop.payments.domain.PaymentRequestDomain;
 import pl.training.shop.payments.domain.PaymentStatusDomain;

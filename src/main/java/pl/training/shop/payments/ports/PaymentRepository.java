@@ -1,6 +1,6 @@
-package pl.training.shop.payments.service.integration;
+package pl.training.shop.payments.ports;
 
-import pl.training.shop.payments.service.PaymentDomain;
+import pl.training.shop.payments.domain.PaymentDomain;
 
 import java.util.Optional;
 

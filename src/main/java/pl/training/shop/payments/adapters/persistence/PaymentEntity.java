@@ -1,4 +1,4 @@
-package pl.training.shop.payments.persistence;
+package pl.training.shop.payments.adapters.persistence;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

@@ -1,9 +1,8 @@
-package pl.training.shop.payments.service.integration;
+package pl.training.shop.payments.adapters.persistence;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import pl.training.shop.payments.persistence.PaymentEntity;
-import pl.training.shop.payments.service.PaymentDomain;
+import pl.training.shop.payments.domain.PaymentDomain;
 
 @Mapper(componentModel = "spring", imports = {java.math.BigDecimal.class, org.javamoney.moneta.FastMoney.class})
 public interface JpaPersistenceMapper {

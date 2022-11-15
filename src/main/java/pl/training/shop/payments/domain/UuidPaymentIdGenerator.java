@@ -1,10 +1,7 @@
-package pl.training.shop.payments.service;
-
-import org.springframework.stereotype.Service;
+package pl.training.shop.payments.domain;
 
 import java.util.UUID;
 
-@Service
 public class UuidPaymentIdGenerator implements PaymentIdGenerator {
 
     @Override

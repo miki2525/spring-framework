@@ -3,10 +3,12 @@ package pl.training.shop.payments;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.javamoney.moneta.FastMoney;
+import org.springframework.transaction.annotation.Transactional;
 import pl.training.shop.commons.aop.Loggable;
 import pl.training.shop.commons.aop.MinLength;
 import pl.training.shop.time.TimeProvider;
 
+@Transactional
 @Log
 @RequiredArgsConstructor
 public class PaymentProcessor implements PaymentService {

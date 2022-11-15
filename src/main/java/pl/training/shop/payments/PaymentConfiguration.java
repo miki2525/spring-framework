@@ -26,8 +26,8 @@ public class PaymentConfiguration {
     }
 
     @Bean
-    public PaymentRepository inMemoryRepository() {
-        return new InMemoryPaymentRepository();
+    public PaymentRepository jpaRepository() {
+        return new JpaPaymentRepository();
     }
 
     @Scope(BeanDefinition.SCOPE_SINGLETON) // default

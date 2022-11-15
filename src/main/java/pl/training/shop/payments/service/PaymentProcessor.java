@@ -1,14 +1,17 @@
-package pl.training.shop.payments;
+package pl.training.shop.payments.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.javamoney.moneta.FastMoney;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.training.shop.commons.aop.Loggable;
 import pl.training.shop.commons.aop.MinLength;
+import pl.training.shop.payments.service.integration.PaymentRepository;
 import pl.training.shop.time.TimeProvider;
 
 @Transactional
+@Service("paymentService")
 @Log
 @RequiredArgsConstructor
 public class PaymentProcessor implements PaymentService {
@@ -20,18 +23,18 @@ public class PaymentProcessor implements PaymentService {
 
     @Loggable
     @Override
-    public Payment process(PaymentRequest paymentRequest) {
+    public PaymentDomain process(PaymentRequestDomain paymentRequest) {
         var paymentValue = calculatePaymentValue(paymentRequest.getValue());
         var payment = createPayment(paymentValue);
         return paymentsRepository.save(payment);
     }
 
-    private Payment createPayment(FastMoney paymentValue) {
-        return Payment.builder()
+    private PaymentDomain createPayment(FastMoney paymentValue) {
+        return PaymentDomain.builder()
                 .id(paymentIdGenerator.getNext())
                 .value(paymentValue)
                 .timestamp(timeProvider.getTimestamp())
-                .status(PaymentStatus.STARTED)
+                .status(PaymentStatusDomain.STARTED)
                 .build();
     }
 
@@ -40,17 +43,9 @@ public class PaymentProcessor implements PaymentService {
     }
 
     @Override
-    public Payment getById(@MinLength String id) {
+    public PaymentDomain getById(@MinLength String id) {
         return paymentsRepository.getById(id)
                 .orElseThrow(PaymentNotFoundException::new);
-    }
-
-    public void init() {
-        log.info("Initializing PaymentProcessor bean");
-    }
-
-    public void destroy() {
-        log.info("Destroying PaymentProcessor bean");
     }
 
 }

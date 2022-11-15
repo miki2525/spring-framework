@@ -7,7 +7,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
-import pl.training.shop.commons.Annotations;
+
+import static pl.training.shop.commons.Annotations.findAnnotation;
 
 @Aspect
 @Component
@@ -18,7 +19,7 @@ public class TransactionProvider {
 
     @Around("@annotation(pl.training.shop.commons.aop.Atomic) || within(@pl.training.shop.commons.aop.Atomic *)")
     public Object runWithTransaction(ProceedingJoinPoint joinPoint) throws Throwable {
-        var atomic = Annotations.findAnnotation(joinPoint, Atomic.class);
+        var atomic = findAnnotation(joinPoint, Atomic.class);
         var transactionDefinition = getTransactionDefinition(atomic);
         var transaction = transactionManager.getTransaction(transactionDefinition);
         try {

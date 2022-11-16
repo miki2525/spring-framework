@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "requestId": 1,
-  "value": "d200 PLN"
+  "value": "200 PLN"
 }
 
 ###

@@ -3,7 +3,9 @@ package pl.training.shop;
 import com.zaxxer.hikari.HikariDataSource;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.*;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -11,7 +13,9 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import pl.training.shop.payments.adapters.time.SystemTimeProvider;
 import pl.training.shop.payments.ports.TimeProvider;
 
@@ -26,7 +30,7 @@ import java.util.Properties;
 @EnableAspectJAutoProxy
 @ComponentScan
 @Configuration
-public class ApplicationConfiguration {
+public class ApplicationConfiguration implements WebMvcConfigurer {
 
     @Bean
     public TimeProvider systemTimeProvider() {
@@ -64,6 +68,21 @@ public class ApplicationConfiguration {
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
+    }
+
+    @Bean
+    public MessageSource messageSource() {
+        var messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename("exceptions");
+        return messageSource;
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:4200")
+                .allowedHeaders("*")
+                .allowedMethods("*");
     }
 
 }

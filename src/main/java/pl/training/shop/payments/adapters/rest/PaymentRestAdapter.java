@@ -53,7 +53,7 @@ public class PaymentRestAdapter {
     }
 
     /*@ExceptionHandler(PaymentNotFoundException.class)
-    public ResponseEntity<ExceptionDto> onPaymentNotFound(PaymentNotFoundException exception) {
+    public ResponseEntity<ExceptionDto> onPaymentNotFoundException(PaymentNotFoundException exception) {
         return ResponseEntity.status(NOT_FOUND)
                 .body(new ExceptionDto(Instant.now(), "Payment not found"));
     }*/

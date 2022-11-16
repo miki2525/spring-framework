@@ -27,6 +27,6 @@ public interface JpaPersistenceMapper {
 
     @Mapping(source = "content", target = "data")
     @Mapping(source = "number", target = "pageNumber")
-    ResultPage<PaymentDomain> toDomain(Page<PaymentEntity> page);
+    ResultPage<PaymentDomain> toDomain(Page<PaymentEntity> paymentEntityPage);
 
 }

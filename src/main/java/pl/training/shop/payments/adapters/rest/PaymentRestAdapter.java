@@ -17,8 +17,8 @@ public class PaymentRestAdapter {
     @PostMapping()
     public ResponseEntity<PaymentDto> process(@RequestBody PaymentRequestDto paymentRequestDto) {
         var paymentRequest = mapper.toDomain(paymentRequestDto);
-        var payment = paymentService.process(paymentRequest);
-        var paymentDto = mapper.toDto(payment);
+        var paymentDomain = paymentService.process(paymentRequest);
+        var paymentDto = mapper.toDto(paymentDomain);
         var locationUri = LocationUri.fromRequest(paymentDto.getId());
         return ResponseEntity.created(locationUri)
                 .body(paymentDto);

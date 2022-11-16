@@ -21,7 +21,7 @@ import java.time.Instant;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static pl.training.shop.payments.domain.PaymentStatusDomain.STARTED;
 
-@RequestMapping("payments")
+@RequestMapping("api/payments")
 @RestController
 @RequiredArgsConstructor
 public class PaymentRestAdapter {

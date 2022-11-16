@@ -1,7 +1,7 @@
 package pl.training.shop.payments;
 
 import lombok.extern.java.Log;
-import org.javamoney.moneta.FastMoney;
+import org.javamoney.moneta.Money;
 
 import java.time.Instant;
 
@@ -21,7 +21,7 @@ public class PaymentProcessor {
         return paymentsRepository.save(payment);
     }
 
-    private Payment createPayment(FastMoney paymentValue) {
+    private Payment createPayment(Money paymentValue) {
         return Payment.builder()
                 .id(paymentIdGenerator.getNext())
                 .value(paymentValue)
@@ -30,7 +30,7 @@ public class PaymentProcessor {
                 .build();
     }
 
-    private FastMoney calculatePaymentValue(FastMoney paymentValue) {
+    private Money calculatePaymentValue(Money paymentValue) {
         var paymentFee = paymentFeeCalculator.calculateFee(paymentValue);
         return paymentValue.add(paymentFee);
     }

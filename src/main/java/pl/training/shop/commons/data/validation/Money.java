@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Money {
 
-    String message() default "invalid money";
+    String message() default "is invalid";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
     double minValue() default 1;

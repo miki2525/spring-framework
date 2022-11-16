@@ -3,8 +3,11 @@ package pl.training.shop.payments.adapters.rest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.training.shop.commons.data.Page;
+import pl.training.shop.commons.data.validation.Base;
+import pl.training.shop.commons.data.validation.Extended;
 import pl.training.shop.commons.web.ExceptionDto;
 import pl.training.shop.commons.web.LocationUri;
 import pl.training.shop.commons.web.ResultPageDto;
@@ -12,6 +15,7 @@ import pl.training.shop.payments.domain.PaymentNotFoundException;
 import pl.training.shop.payments.domain.PaymentStatusDomain;
 import pl.training.shop.payments.ports.PaymentService;
 
+import javax.validation.Valid;
 import java.time.Instant;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -26,7 +30,7 @@ public class PaymentRestAdapter {
     private final RestPaymentMapper mapper;
 
     @PostMapping()
-    public ResponseEntity<PaymentDto> process(@RequestBody PaymentRequestDto paymentRequestDto) {
+    public ResponseEntity<PaymentDto> process(/*@Valid*/ @Validated(Base.class) @RequestBody PaymentRequestDto paymentRequestDto) {
         var paymentRequest = mapper.toDomain(paymentRequestDto);
         var paymentDomain = paymentService.process(paymentRequest);
         var paymentDto = mapper.toDto(paymentDomain);

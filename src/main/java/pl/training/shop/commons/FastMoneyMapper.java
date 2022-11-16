@@ -1,4 +1,4 @@
-package pl.training.shop.commons.money;
+package pl.training.shop.commons;
 
 import org.javamoney.moneta.FastMoney;
 import org.mapstruct.Mapper;

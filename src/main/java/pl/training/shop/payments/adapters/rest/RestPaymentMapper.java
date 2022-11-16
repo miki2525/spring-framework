@@ -3,7 +3,7 @@ package pl.training.shop.payments.adapters.rest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import pl.training.shop.commons.data.ResultPage;
-import pl.training.shop.commons.money.FastMoneyMapper;
+import pl.training.shop.commons.FastMoneyMapper;
 import pl.training.shop.commons.web.ResultPageDto;
 import pl.training.shop.payments.domain.PaymentDomain;
 import pl.training.shop.payments.domain.PaymentRequestDomain;

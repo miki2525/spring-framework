@@ -3,7 +3,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "requestId": "1",
+  "requestId": 1,
   "value": "200 PLN"
 }
 

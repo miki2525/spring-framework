@@ -31,7 +31,8 @@ public class PaymentProcessor {
     }
 
     private FastMoney calculatePaymentValue(FastMoney paymentValue) {
-        return paymentValue.add(paymentFeeCalculator.calculateFee(paymentValue));
+        var paymentFee = paymentFeeCalculator.calculateFee(paymentValue);
+        return paymentValue.add(paymentFee);
     }
 
 }

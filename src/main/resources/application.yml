@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shop
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    generate-ddl: true
+    #hibernate:
+    #  ddl-auto: create-drop
+  messages:
+    basename: exceptions
+logging:
+  level:
+    org.javamoney.moneta: OFF

@@ -1,7 +1,7 @@
 package pl.training.shop.payments;
 
 import lombok.*;
-import org.javamoney.moneta.FastMoney;
+import org.javamoney.moneta.Money;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -20,7 +20,7 @@ public class Payment {
 
     @Id
     private String id;
-    private FastMoney value;
+    private Money value;
     private Instant timestamp;
     @Enumerated(EnumType.STRING)
     private PaymentStatus status;

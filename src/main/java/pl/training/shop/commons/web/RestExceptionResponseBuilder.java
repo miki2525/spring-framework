@@ -32,7 +32,7 @@ public class RestExceptionResponseBuilder {
         String description;
         try {
             description = messageSource.getMessage(key, parameters, locale);
-        } catch (NoSuchMessageException ex) {
+        } catch (NoSuchMessageException noSuchMessageException) {
             description = key;
         }
         return description;

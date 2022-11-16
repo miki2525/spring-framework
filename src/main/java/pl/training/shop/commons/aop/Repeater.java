@@ -19,8 +19,8 @@ public class Repeater {
             attempt++;
             try {
                 return joinPoint.proceed();
-            } catch (Throwable exception) {
-                throwable = exception;
+            } catch (Throwable currentThrowable) {
+                throwable = currentThrowable;
                 log.info("%s method execution failed (attempt: %d)".formatted(joinPoint.getSignature().getName(), attempt));
             }
         } while (attempt < retry.attempts());

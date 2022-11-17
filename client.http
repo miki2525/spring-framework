@@ -18,3 +18,12 @@ Content-Type: application/json
 GET http://localhost:8080/api/payments/started?pageNumer=0
 Accept: application/json
 Content-Type: application/json
+
+###
+
+//@no-redirect
+//@no-cookie-jar
+GET http://localhost:8080/api/users/me
+Accept: application/json
+Content-Type: application/json
+

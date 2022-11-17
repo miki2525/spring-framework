@@ -3,18 +3,20 @@ package pl.training.shop.payments.adapters.persistence;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 import static pl.training.shop.payments.PaymentFixtures.createEntity;
 
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
+@AutoConfigureTestDatabase(replace = NONE)
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
 class JpaPaymentRepositoryTest {

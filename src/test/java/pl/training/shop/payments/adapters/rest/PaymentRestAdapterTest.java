@@ -11,12 +11,9 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import pl.training.shop.SecurityConfiguration;
 import pl.training.shop.commons.data.validation.ValidationExceptionMapper;
 import pl.training.shop.commons.web.RestExceptionResponseBuilder;
 import pl.training.shop.payments.domain.PaymentDomain;
@@ -25,14 +22,13 @@ import pl.training.shop.payments.ports.PaymentService;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.context.annotation.FilterType.ASSIGNABLE_TYPE;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static pl.training.shop.payments.PaymentFixtures.*;
 
-@WebMvcTest(value = PaymentRestAdapter.class, excludeFilters = {@ComponentScan.Filter(type = ASSIGNABLE_TYPE, classes = SecurityConfiguration.class)})
+@WebMvcTest(value = PaymentRestAdapter.class)
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
 class PaymentRestAdapterTest {

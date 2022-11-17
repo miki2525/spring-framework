@@ -28,21 +28,23 @@ class JpaPaymentRepositoryTest {
 
     @Test
     void given_completed_payment_in_database_when_get_by_status_and_value_then_returns_payment() {
-        var PAYMENT_ENTITY = createEntity("COMPLETED");
-        entityManager.persist(PAYMENT_ENTITY);
-        entityManager.flush();
-        var result = paymentRepository.getCompletedWithValue(PAYMENT_ENTITY.getValue(), PageRequest.of(0, 1));
+        var paymentEntity = prepareEntity("COMPLETED");
+        var result = paymentRepository.getCompletedWithValue(paymentEntity.getValue(), PageRequest.of(0, 1));
         assertFalse(result.getContent().isEmpty());
     }
 
-
     @Test
     void given_started_payment_in_database_when_get_by_status_and_value_then_returns_empty_list() {
-        var PAYMENT_ENTITY = createEntity("STARTED");
-        entityManager.persist(PAYMENT_ENTITY);
-        entityManager.flush();
-        var result = paymentRepository.getCompletedWithValue(PAYMENT_ENTITY.getValue(), PageRequest.of(0, 1));
+        var paymentEntity = prepareEntity("STARTED");
+        var result = paymentRepository.getCompletedWithValue(paymentEntity.getValue(), PageRequest.of(0, 1));
         assertTrue(result.getContent().isEmpty());
+    }
+
+    private PaymentEntity prepareEntity(String status) {
+        var paymentEntity = createEntity(status);
+        entityManager.persist(paymentEntity);
+        entityManager.flush();
+        return paymentEntity;
     }
 
 }

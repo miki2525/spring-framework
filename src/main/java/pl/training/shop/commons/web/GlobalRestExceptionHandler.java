@@ -35,4 +35,9 @@ public class GlobalRestExceptionHandler {
         return responseBuilder.build(description, BAD_REQUEST);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ExceptionDto> onIllegalArgumentException(IllegalArgumentException illegalArgumentException, Locale locale) {
+        return responseBuilder.build(illegalArgumentException, BAD_REQUEST, locale);
+    }
+
 }

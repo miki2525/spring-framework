@@ -4,7 +4,7 @@ import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static pl.training.shop.payments.domain.PaymentFixtures.moneyOf;
+import static pl.training.shop.payments.PaymentFixtures.moneyOf;
 
 class PercentagePaymentFeeCalculatorTest {
 

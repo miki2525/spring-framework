@@ -81,7 +81,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .mvcMatchers("/login.html").permitAll()
                     //.mvcMatchers(POST, "/payments/process").hasRole("ADMIN")
-                    .mvcMatchers("/**").authenticated().accessDecisionManager(accessDecisionManager())
+                    .mvcMatchers("/**").authenticated()//.accessDecisionManager(accessDecisionManager())
                 .and()
                 //.httpBasic()
                 .formLogin()

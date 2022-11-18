@@ -55,5 +55,4 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
         return new CustomAuthentication(username, password, token);
     }
 
-
 }

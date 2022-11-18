@@ -9,7 +9,7 @@ import dev.samstevens.totp.util.Utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static dev.samstevens.totp.code.HashingAlgorithm.SHA256;
+import static dev.samstevens.totp.code.HashingAlgorithm.SHA1;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +29,7 @@ public class TokenManager {
                     .label("MFA")
                     .secret(secret)
                     .issuer("Shop")
-                    .algorithm(SHA256)
+                    .algorithm(SHA1)
                     .digits(6)
                     .period(30)
                     .build();

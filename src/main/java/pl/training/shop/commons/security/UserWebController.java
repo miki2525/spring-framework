@@ -1,10 +1,15 @@
 package pl.training.shop.commons.security;
 
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RequestMapping("api/users")
 @Controller
@@ -14,11 +19,12 @@ public class UserWebController {
     private final UsersService usersService;
 
     @GetMapping
-    public String register(Model model) {
-        usersService.addUser("marta", "123", "marta@training.pl");
-        var token = usersService.createToken("marta");
-        model.addAttribute("token", token);
-        return "users/configure-2fa";
+    public void register(HttpServletResponse httpServletResponse) throws WriterException, IOException {
+        httpServletResponse.setHeader("Content-Type", "image/png");
+        var matrix = usersService.addUser("marta", "123", "marta@training.pl");
+        var stream = httpServletResponse.getOutputStream();
+        MatrixToImageWriter.writeToStream(matrix, "PNG", stream);
+        stream.close();
     }
 
 

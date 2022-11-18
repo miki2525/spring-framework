@@ -1,5 +1,6 @@
 package pl.training.shop.commons.security;
 
+import com.warrenstrange.googleauth.GoogleAuthenticator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-    private final TokenManager tokenManager;
+    private final GoogleAuthenticator authenticator;
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
 
@@ -25,7 +26,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (!passwordEncoder.matches(customAuthentication.getPassword(), user.getPassword())) {
             throw new BadCredentialsException("Invalid user or password");
         }
-        if (!tokenManager.verifyTotp(user.getSecret(), customAuthentication.getToken())) {
+        if (!authenticator.authorizeUser(user.getName(), Integer.parseInt(customAuthentication.getToken()))) {
             throw new BadCredentialsException("Invalid user or password");
         }
         var result = UsernamePasswordAuthenticationToken.authenticated(customAuthentication.getUsername(), "", user.getAuthorities());

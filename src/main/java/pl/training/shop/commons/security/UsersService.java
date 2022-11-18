@@ -1,36 +1,44 @@
 package pl.training.shop.commons.security;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.warrenstrange.googleauth.GoogleAuthenticator;
+import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.google.zxing.qrcode.QRCodeWriter;
 
 @Service
 @RequiredArgsConstructor
 public class UsersService {
 
     private final PasswordEncoder passwordEncoder;
-    private final TokenManager tokenManager;
+    private final GoogleAuthenticator googleAuthenticator;
     private final JpaUserRepository jpaUserRepository;
 
-    public void addUser(String name, String password, String email) {
+    public BitMatrix addUser(String name, String password, String email) throws WriterException {
         if (jpaUserRepository.getByName(name).isPresent()) {
             throw new IllegalStateException();
         }
+        var secret= googleAuthenticator.createCredentials(name);
+        var otpAuthUrl = GoogleAuthenticatorQRGenerator.getOtpAuthTotpURL("Shop", name, secret);
+
+
+
         var user = new UserEntity();
         user.setName(name);
         user.setPassword(passwordEncoder.encode(password));
         user.setEmail(email);
         user.setRole("ROLE_ADMIN");
         user.setEnabled(true);
-        user.setSecret(tokenManager.generateSecret());
+        user.setSecret(secret.getKey());
         user.setTwoFactorAuthentication(true);
         jpaUserRepository.save(user);
+        return new QRCodeWriter().encode(otpAuthUrl, BarcodeFormat.QR_CODE, 200, 200);
     }
 
-    public Token createToken(String name) {
-        return jpaUserRepository.getByName(name)
-                .map(user -> new Token(tokenManager.createQr(user.getSecret()), user.getSecret()))
-                .orElseThrow(IllegalStateException::new);
-    }
 
 }

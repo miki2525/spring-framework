@@ -1,7 +1,6 @@
 package pl.training.shop.commons.security;
 
 import dev.samstevens.totp.code.CodeVerifier;
-import dev.samstevens.totp.code.HashingAlgorithm;
 import dev.samstevens.totp.exceptions.QrGenerationException;
 import dev.samstevens.totp.qr.QrData;
 import dev.samstevens.totp.qr.QrGenerator;
@@ -10,7 +9,7 @@ import dev.samstevens.totp.util.Utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static dev.samstevens.totp.code.HashingAlgorithm.SHA512;
+import static dev.samstevens.totp.code.HashingAlgorithm.SHA256;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +29,7 @@ public class TokenManager {
                     .label("MFA")
                     .secret(secret)
                     .issuer("Shop")
-                    .algorithm(SHA512)
+                    .algorithm(SHA256)
                     .digits(6)
                     .period(30)
                     .build();

@@ -1,21 +1,25 @@
 package pl.training.shop.commons.security;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
-
-@RequestMapping("api/users/me")
-@RestController
+@RequestMapping("api/users")
+@Controller
+@RequiredArgsConstructor
 public class UserWebController {
 
+    private final UsersService usersService;
+
     @GetMapping
-    public UserDetails getInfo(Authentication authentication, Principal principal) {
-        // var authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (ShopUserDetails) authentication.getPrincipal();
+    public String register(Model model) {
+        usersService.addUser("marta", "123", "marta@training.pl");
+        var token = usersService.createToken("marta");
+        model.addAttribute("token", token);
+        return "users/configure-2fa";
     }
+
 
 }

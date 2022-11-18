@@ -10,8 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import pl.training.shop.security.CredentialsRepository;
-import pl.training.shop.security.CustomAuthenticationFilter;
+import pl.training.shop.commons.security.CredentialsRepository;
+import pl.training.shop.commons.security.OtpAuthenticationFilter;
 
 @Configuration
 public class SecurityConfiguration {
@@ -22,11 +22,11 @@ public class SecurityConfiguration {
     }
 
     @Autowired
-    CustomAuthenticationFilter customAuthenticationFilter;
+    OtpAuthenticationFilter otpAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.addFilterBefore(customAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+        http.addFilterBefore(otpAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
            .authorizeRequests()
                 .mvcMatchers("/payments/process").hasRole("ADMIN")
            .mvcMatchers("/**").permitAll()

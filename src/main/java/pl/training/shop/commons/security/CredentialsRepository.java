@@ -1,16 +1,13 @@
-package pl.training.shop.security;
+package pl.training.shop.commons.security;
 
 import com.warrenstrange.googleauth.ICredentialRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
-import org.springframework.stereotype.Component;
-import pl.training.shop.users.adapters.persistence.UserEntity;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component
+@Repository
 @RequiredArgsConstructor
-@Log
 public class CredentialsRepository implements ICredentialRepository {
 
     private final JpaUserRepository jpaUserRepository;
@@ -18,7 +15,8 @@ public class CredentialsRepository implements ICredentialRepository {
     @Override
     public String getSecretKey(String username) {
         return jpaUserRepository.getByName(username)
-                .map(UserEntity::getSecret)
+                .map(OtpUserEntity::getSecret)
+                .map(String::valueOf)
                 .orElseThrow(IllegalStateException::new);
     }
 

@@ -1,4 +1,4 @@
-package pl.training.shop.users.adapters.persistence;
+package pl.training.shop.commons.security;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,14 +6,12 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.Objects;
 
-@Entity(name = "User")
-@Table(name = "users")
+@Entity(name = "OtpUser")
 @Getter
 @Setter
-public class UserEntity {
+public class OtpUserEntity {
 
     @GeneratedValue
     @Id
@@ -32,8 +30,8 @@ public class UserEntity {
         if (otherObject == null || getClass() != otherObject.getClass()) {
             return false;
         }
-        var account = (UserEntity) otherObject;
-        return Objects.equals(id, account.id);
+        var otherUser = (OtpUserEntity) otherObject;
+        return Objects.equals(id, otherUser.id);
     }
 
     @Override

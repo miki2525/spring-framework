@@ -1,4 +1,4 @@
-package pl.training.shop.security;
+package pl.training.shop.commons.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -14,12 +14,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
+import static java.util.Collections.emptyList;
+
 @Component
 @RequiredArgsConstructor
-public class CustomAuthenticationFilter extends OncePerRequestFilter {
+public class OtpAuthenticationFilter extends OncePerRequestFilter {
 
     private static final AntPathRequestMatcher REQUEST_MATCHER = new AntPathRequestMatcher("/login.html", "POST");
-    private static final String TOKEN = "token";
+    private static final String REDIRECT_URL = "/";
+    private static final String USERNAME_PARAMETER = "username";
+    private static final String PASSWORD_PARAMETER = "password";
+    private static final String CODE_PARAMETER = "code";
 
     private final AuthenticationConfiguration authenticationConfiguration;
 
@@ -30,15 +36,11 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
             try {
                 var authenticationResult = authenticationConfiguration.getAuthenticationManager()
                         .authenticate(authentication);
-
-                var context = SecurityContextHolder.createEmptyContext();
-                context.setAuthentication(authenticationResult);
-                SecurityContextHolder.setContext(context);
-
-                response.sendRedirect("index.html");
+                createSecurityContext(authenticationResult);
+                response.sendRedirect(REDIRECT_URL);
             } catch (Exception e) {
                 SecurityContextHolder.clearContext();
-                response.sendError(401);
+                response.sendError(HTTP_UNAUTHORIZED);
             }
         } else {
             filterChain.doFilter(request, response);
@@ -46,10 +48,16 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private Authentication getAuthentication(HttpServletRequest request) {
-        var username = request.getParameter("username");
-        var password = request.getParameter("password");
-        var token = request.getParameter(TOKEN);
-        return new CustomAuthentication(username, password, token);
+        var username = request.getParameter(USERNAME_PARAMETER);
+        var password = request.getParameter(PASSWORD_PARAMETER);
+        var code = request.getParameter(CODE_PARAMETER);
+        return new OtpUserPasswordAuthenticationToken(username, password, code, emptyList());
+    }
+
+    private void createSecurityContext(Authentication authentication) {
+        var context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication);
+        SecurityContextHolder.setContext(context);
     }
 
 }

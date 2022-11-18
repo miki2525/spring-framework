@@ -1,4 +1,4 @@
-package pl.training.shop.security;
+package pl.training.shop.commons.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +16,7 @@ public class JpaUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return jpaUserRepository.getByName(username)
-                .map(mapper::toDomain)
+                .map(mapper::toModel)
                 .orElseThrow(() -> new UsernameNotFoundException("User %s not found".formatted(username)));
     }
 

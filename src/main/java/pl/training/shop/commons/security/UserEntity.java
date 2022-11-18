@@ -22,5 +22,7 @@ public class UserEntity {
     private boolean enabled;
     private String email;
     private String role;
+    private String secret;
+    private boolean twoFactorAuthentication;
 
 }

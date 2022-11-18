@@ -17,6 +17,8 @@ public class ShopUserDetails implements UserDetails {
     private boolean enabled;
     private String email;
     private String role;
+    private String secret;
+    private boolean twoFactorAuthentication;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

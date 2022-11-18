@@ -1,9 +1,9 @@
 package pl.training.shop.payments;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.Setter;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.Optional;
 
 public class JpaPaymentRepository implements PaymentRepository {

@@ -1,6 +1,7 @@
 package pl.training.shop;
 
 import com.zaxxer.hikari.HikariDataSource;
+import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.*;
@@ -13,7 +14,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import pl.training.shop.time.SystemTimeProvider;
 import pl.training.shop.time.TimeProvider;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 

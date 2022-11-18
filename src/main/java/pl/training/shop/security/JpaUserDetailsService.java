@@ -1,4 +1,4 @@
-package pl.training.shop.commons.security;
+package pl.training.shop.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

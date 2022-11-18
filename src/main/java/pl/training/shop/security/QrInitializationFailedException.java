@@ -1,4 +1,4 @@
-package pl.training.shop.commons.security;
+package pl.training.shop.security;
 
 public class QrInitializationFailedException extends RuntimeException {
 }

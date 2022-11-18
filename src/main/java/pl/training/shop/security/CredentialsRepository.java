@@ -1,9 +1,10 @@
-package pl.training.shop.commons.security;
+package pl.training.shop.security;
 
 import com.warrenstrange.googleauth.ICredentialRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Component;
+import pl.training.shop.users.adapters.persistence.UserEntity;
 
 import java.util.List;
 

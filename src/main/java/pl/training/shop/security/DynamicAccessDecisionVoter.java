@@ -1,4 +1,4 @@
-package pl.training.shop.commons.security;
+package pl.training.shop.security;
 
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.ConfigAttribute;

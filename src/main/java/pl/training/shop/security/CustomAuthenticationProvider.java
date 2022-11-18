@@ -1,4 +1,4 @@
-package pl.training.shop.commons.security;
+package pl.training.shop.security;
 
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import lombok.RequiredArgsConstructor;

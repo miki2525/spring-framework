@@ -1,6 +1,7 @@
-package pl.training.shop.commons.security;
+package pl.training.shop.security;
 
 import org.mapstruct.Mapper;
+import pl.training.shop.users.adapters.persistence.UserEntity;
 
 @Mapper(componentModel = "spring")
 public interface SecurityUserMapper {

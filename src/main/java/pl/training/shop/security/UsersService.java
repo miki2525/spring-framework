@@ -1,8 +1,7 @@
-package pl.training.shop.commons.security;
+package pl.training.shop.security;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
@@ -10,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.google.zxing.qrcode.QRCodeWriter;
+import pl.training.shop.users.adapters.persistence.UserEntity;
 
 @Service
 @RequiredArgsConstructor

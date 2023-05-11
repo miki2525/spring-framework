@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.training.shop.commons.data.Page;
+import pl.training.shop.commons.data.validation.Base;
 import pl.training.shop.commons.data.validation.Extended;
 import pl.training.shop.commons.web.LocationUri;
 import pl.training.shop.commons.web.ResultPageDto;
@@ -29,7 +30,7 @@ public class PaymentRestAdapter {
     }
 
    @PostMapping
-   public ResponseEntity<PaymentDto> process(@RequestBody /*@Valid*/ @Validated(Extended.class) PaymentRequestDto paymentRequestDto) {
+   public ResponseEntity<PaymentDto> process(@RequestBody /*@Valid*/ @Validated(Base.class) PaymentRequestDto paymentRequestDto) {
         var paymentRequest = mapper.toDomain(paymentRequestDto);
         var paymentDomain = paymentService.process(paymentRequest);
         var paymentDto = mapper.toDto(paymentDomain);

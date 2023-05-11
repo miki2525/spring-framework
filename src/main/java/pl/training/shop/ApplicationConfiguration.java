@@ -14,7 +14,9 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import pl.training.shop.payments.adapters.time.SystemTimeProvider;
 import pl.training.shop.payments.ports.TimeProvider;
 
@@ -29,7 +31,7 @@ import java.util.Properties;
 @EnableAspectJAutoProxy
 @ComponentScan
 @Configuration
-public class ApplicationConfiguration {
+public class ApplicationConfiguration implements WebMvcConfigurer {
 
     @Bean
     public TimeProvider systemTimeProvider() {
@@ -81,6 +83,14 @@ public class ApplicationConfiguration {
         var factoryBean = new LocalValidatorFactoryBean();
         factoryBean.setValidationMessageSource(messageSource);
         return factoryBean;
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:4200")
+                .allowedHeaders("*")
+                .allowedMethods("*");
     }
 
 }

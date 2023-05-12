@@ -1,8 +1,12 @@
 package pl.training.shop;
 
+import org.springframework.boot.actuate.autoconfigure.metrics.JvmMetricsAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.LogbackMetricsAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -10,6 +14,10 @@ import pl.training.shop.payments.adapters.time.SystemTimeProvider;
 import pl.training.shop.payments.ports.TimeProvider;
 
 //@Profile("devlopment")
+@EnableAutoConfiguration(exclude = {
+        JacksonAutoConfiguration.class, JvmMetricsAutoConfiguration.class,
+        LogbackMetricsAutoConfiguration.class, MetricsAutoConfiguration.class
+})
 @Configuration
 public class ApplicationConfiguration implements WebMvcConfigurer {
 

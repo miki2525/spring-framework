@@ -10,7 +10,7 @@ spring:
     #  ddl-auto: create-drop
     open-in-view: false
   messages:
-    basename: exceptions
+    basename: exceptions,text
 logging:
   level:
     org.javamoney.moneta: OFF

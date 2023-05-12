@@ -14,7 +14,7 @@ import pl.training.shop.payments.ports.PaymentService;
 
 import static pl.training.shop.payments.domain.PaymentStatusDomain.STARTED;
 
-@RequestMapping("payments")
+@RequestMapping("api/payments")
 @RestController
 @RequiredArgsConstructor
 public class PaymentRestAdapter {

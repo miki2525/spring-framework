@@ -9,7 +9,7 @@ import pl.training.shop.commons.data.validation.Money;
 @Data
 public class PaymentRequestDto {
 
-    @Min(value = 1, groups = Base.class)
+    @Min(value = 1, groups = Base.class, message = "{minTextMessage}")
     private Long requestId;
     //@Pattern(regexp = "\\d+ [A-Z]+")
     //@NotNull

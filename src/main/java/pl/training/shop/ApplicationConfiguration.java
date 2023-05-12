@@ -79,7 +79,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
-    public LocalValidatorFactoryBean getValidator(MessageSource messageSource) {
+    public LocalValidatorFactoryBean validator(MessageSource messageSource) {
         var factoryBean = new LocalValidatorFactoryBean();
         factoryBean.setValidationMessageSource(messageSource);
         return factoryBean;

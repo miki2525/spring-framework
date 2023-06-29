@@ -1,7 +1,11 @@
 package pl.training.shop.payments.adapters.web;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +23,11 @@ public class PaymentWebAdapter {
 
     private final PaymentService paymentService;
     private final WebPaymentMapper mapper;
+
+    @Secured("ROLE_ADMIN")
+    @RolesAllowed("ROLE_ADMIN")
+    @PreAuthorize("false")
+    @PostAuthorize("#model.containsAttribute('paymentRequest')")
 
     @GetMapping
     public String showPaymentForm(Model model) {

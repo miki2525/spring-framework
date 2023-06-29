@@ -39,4 +39,5 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
         registry.addViewController("index.html").setViewName("index");
         registry.addViewController("payments/payment-summary").setViewName("payments/payment-summary");
     }
+
 }

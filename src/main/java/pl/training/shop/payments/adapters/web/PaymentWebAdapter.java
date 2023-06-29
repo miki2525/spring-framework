@@ -1,6 +1,6 @@
 package pl.training.shop.payments.adapters.web;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

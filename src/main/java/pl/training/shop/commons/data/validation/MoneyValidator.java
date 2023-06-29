@@ -2,8 +2,8 @@ package pl.training.shop.commons.data.validation;
 
 import org.javamoney.moneta.FastMoney;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class MoneyValidator implements ConstraintValidator<Money, String> {
 

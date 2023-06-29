@@ -1,6 +1,6 @@
 package pl.training.shop.payments.adapters.rest;
 
-import javax.validation.constraints.Min;
+import jakarta.validation.constraints.Min;
 import lombok.Data;
 import pl.training.shop.commons.data.validation.Base;
 import pl.training.shop.commons.data.validation.Extended;

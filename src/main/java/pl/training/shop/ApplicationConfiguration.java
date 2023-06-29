@@ -38,7 +38,9 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("").setViewName("index");
         registry.addViewController("index.html").setViewName("index");
+        registry.addViewController("login.html").setViewName("login-form");
         registry.addViewController("payments/payment-summary").setViewName("payments/payment-summary");
     }
 

@@ -11,6 +11,8 @@ spring:
     open-in-view: false
   messages:
     basename: text,exceptions
+  profiles:
+    active: development
 logging:
   level:
     org.javamoney.moneta: OFF

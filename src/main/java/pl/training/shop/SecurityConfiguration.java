@@ -48,15 +48,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //auth.jdbcAuthentication()
-        //        .dataSource(dataSource);
+        auth.jdbcAuthentication()
+                .dataSource(dataSource);
         //.usersByUsernameQuery("select username, password, enabled from users where username = ?")
         //.authoritiesByUsernameQuery("select username, authority from authorities where username = ?");
 
-        auth.inMemoryAuthentication()
+        /*auth.inMemoryAuthentication()
                 .withUser("marek")
-                    .password(passwordEncoder().encode("123"))
-                    .roles("ADMIN");
+                .password(passwordEncoder().encode("123"))
+                .roles("ADMIN");*/
 
         // auth.ldapAuthentication()
 
@@ -67,12 +67,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests()
+                //.mvcMatchers("/**").permitAll()
                 .mvcMatchers(POST, "/payments/process").hasRole("ADMIN")
                 .mvcMatchers("/**").authenticated()
                 .and()
-                .httpBasic();
-
+                .httpBasic()
+                .and()
+                .headers()
+                .frameOptions()
+                .disable();
     }
-
 
 }

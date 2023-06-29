@@ -13,6 +13,21 @@ spring:
     basename: exceptions,text
   profiles:
     active: development
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8100/realms/training
+      client:
+        registration:
+          keycloak:
+            client-id: shop-client
+            scope:
+              - openid
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8100/realms/training
+
 logging:
   level:
     org.javamoney.moneta: OFF

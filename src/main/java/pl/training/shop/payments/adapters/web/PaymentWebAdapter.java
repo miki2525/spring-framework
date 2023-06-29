@@ -2,6 +2,7 @@ package pl.training.shop.payments.adapters.web;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +21,7 @@ public class PaymentWebAdapter {
     private final PaymentService paymentService;
     private final WebPaymentMapper mapper;
 
+    @Secured("ROLE_MANAGER")
     @GetMapping
     public String showPaymentForm(Model model) {
         var paymentRequestViewModel = new PaymentRequestViewModel();

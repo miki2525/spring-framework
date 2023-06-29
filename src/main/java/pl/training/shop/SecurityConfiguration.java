@@ -3,6 +3,8 @@ package pl.training.shop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.security.access.vote.AffirmativeBased;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -10,13 +12,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import pl.training.shop.commons.security.DynamicAccessDecisionVoter;
 
 import javax.sql.DataSource;
+
+import java.util.List;
 
 import static org.springframework.http.HttpMethod.POST;
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    // https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter
 
     /*
     AuthenticationManager authenticationManager; // Abstrakcja odpowiadająca za proces uwierzytelnienia
@@ -71,10 +78,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http//.csrf().disable()
-                .authorizeHttpRequests()
+                .authorizeRequests()
                     .mvcMatchers("/login.html").permitAll()
                     .mvcMatchers(POST, "/payments/process").hasRole("ADMIN")
-                    .mvcMatchers("/**").authenticated()
+                    .mvcMatchers("/**").authenticated().accessDecisionManager(accessDecisionManager())
                 .and()
                     //.httpBasic()
                     .formLogin()
@@ -88,6 +95,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .headers()
                     .frameOptions()
                     .disable();
+    }
+
+    @Bean
+    public AccessDecisionManager accessDecisionManager() {
+        return new AffirmativeBased(List.of(new DynamicAccessDecisionVoter()));
     }
 
 }

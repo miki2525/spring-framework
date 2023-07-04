@@ -22,7 +22,7 @@ public class PaymentRestAdapter {
     private final PaymentService paymentService;
     private final RestPaymentMapper mapper;
 
-    @GetMapping("{id}")
+    @GetMapping("{id:\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}}")
     public ResponseEntity<PaymentDto> getById(@PathVariable String id) {
         var paymentDomain = paymentService.getById(id);
         var paymentDto = mapper.toDto(paymentDomain);

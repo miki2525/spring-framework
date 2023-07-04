@@ -1,4 +1,4 @@
-package pl.training.shop.payments.service.integration;
+package pl.training.shop.payments.service;
 
 import pl.training.shop.payments.service.PaymentDomain;
 

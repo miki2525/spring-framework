@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import pl.training.shop.commons.Adapter;
 import pl.training.shop.payments.persistence.JpaPaymentRepository;
 import pl.training.shop.payments.service.PaymentDomain;
+import pl.training.shop.payments.service.PaymentRepository;
 
 import java.util.Optional;
 

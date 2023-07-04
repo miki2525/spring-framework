@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.training.shop.commons.aop.Loggable;
 import pl.training.shop.commons.aop.MinLength;
-import pl.training.shop.payments.service.integration.PaymentRepository;
 import pl.training.shop.time.TimeProvider;
 
 @Transactional

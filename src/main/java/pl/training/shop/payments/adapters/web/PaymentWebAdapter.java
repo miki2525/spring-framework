@@ -21,7 +21,7 @@ public class PaymentWebAdapter {
     private final PaymentService paymentService;
     private final WebPaymentMapper mapper;
 
-    @Secured("ROLE_MANAGER")
+    //@Secured("ROLE_MANAGER")
     @GetMapping
     public String showPaymentForm(Model model) {
         var paymentRequestViewModel = new PaymentRequestViewModel();

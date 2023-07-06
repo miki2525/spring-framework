@@ -16,3 +16,9 @@ spring:
 logging:
   level:
     org.javamoney.moneta: OFF
+server:
+  servlet:
+    session:
+      timeout: 15s
+      cookie:
+        max-age: 15s

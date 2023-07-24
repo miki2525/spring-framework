@@ -6,7 +6,6 @@ import org.javamoney.moneta.Money;
 import pl.training.shop.commons.aop.ExecutionTime;
 import pl.training.shop.commons.aop.Lock;
 import pl.training.shop.commons.aop.MinLength;
-import pl.training.shop.commons.aop.Retry;
 import pl.training.shop.time.TimeProvider;
 
 @Log
@@ -19,7 +18,6 @@ public class PaymentProcessor implements PaymentService {
     private final TimeProvider timeProvider;
 
     @Lock
-    @Retry(attempts = 2)
     @ExecutionTime
     //@Loggable
     @Override

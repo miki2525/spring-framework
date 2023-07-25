@@ -1,20 +1,25 @@
-POST http://localhost:8080/payments
-Accept: application/json
+POST http://localhost:8080/cards/charges
 Content-Type: application/json
+Accept: application/json
 
 {
-  "requestId": 0,
-  "value": "200 PLN"
+  "cardNumber": "1234567890123456",
+  "amount": 10,
+  "currencyCode": "PLN"
 }
 
 ###
 
-GET http://localhost:8080/payments/e2ce6390-d4b6-4744-9e50-20ab28d17535
-Accept: application/json
+POST http://localhost:8080/cards/fees
 Content-Type: application/json
+Accept: application/json
+
+{
+  "cardNumber": "1234567890123456"
+}
 
 ###
 
-GET http://localhost:8080/payments/started?pageNumer=0
-Accept: application/json
+GET http://localhost:8080/cards/1234567890123456/transactions
 Content-Type: application/json
+Accept: application/json

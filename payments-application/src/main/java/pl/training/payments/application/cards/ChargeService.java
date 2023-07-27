@@ -11,15 +11,15 @@ import static pl.training.payments.domain.cards.CardTransactionType.PAYMENT;
 
 public class ChargeService {
 
+    private final CardFeesService cardFeesService;
     private final CardRepository cardRepository;
     private final CardApplicationEventsPublisher cardApplicationEventsPublisher;
     private final TimeProvider timeProvider;
-    private final TransactionFeePolicy transactionFeePolicy;
 
-    public ChargeService(CardRepository cardRepository, CardApplicationEventsPublisher cardApplicationEventsPublisher, TransactionFeePolicy transactionFeePolicy,  TimeProvider timeProvider) {
+    public ChargeService(CardFeesService cardFeesService, CardRepository cardRepository, CardApplicationEventsPublisher cardApplicationEventsPublisher, TimeProvider timeProvider) {
+        this.cardFeesService = cardFeesService;
         this.cardRepository = cardRepository;
         this.cardApplicationEventsPublisher = cardApplicationEventsPublisher;
-        this.transactionFeePolicy = transactionFeePolicy;
         this.timeProvider = timeProvider;
     }
 
@@ -37,7 +37,7 @@ public class ChargeService {
 
     public void chargeCardFees(CardNumber cardNumber) {
         processCardOperation(cardNumber, card -> {
-            var fees = transactionFeePolicy.execute(card.getTransactions());
+            var fees = cardFeesService.calculateFees(card.getTransactions());
             return new CardTransaction(timeProvider.getTimestamp(), fees, FEE);
         });
     }

@@ -9,10 +9,7 @@ import pl.training.payments.application.input.queries.GetCardTransactionsQueryHa
 import pl.training.payments.application.output.events.CardApplicationEventsPublisher;
 import pl.training.payments.application.output.time.TimeProvider;
 import pl.training.payments.application.cards.ChargeService;
-import pl.training.payments.domain.cards.CardFactory;
-import pl.training.payments.domain.cards.CardRepository;
-import pl.training.payments.domain.cards.PerTransactionFeePolicy;
-import pl.training.payments.domain.cards.TransactionFeePolicy;
+import pl.training.payments.domain.cards.*;
 import pl.training.payments.domain.money.Money;
 
 import java.util.Currency;
@@ -23,14 +20,15 @@ import static java.math.BigDecimal.ONE;
 public class PaymentsConfiguration {
 
     @Bean
-    public TransactionFeePolicy transactionFeePolicy() {
-        return new PerTransactionFeePolicy(new Money(ONE, Currency.getInstance("PLN")));
+    public CardFeesService cardFeesService() {
+        var feePolicy = new PerTransactionFeePolicy(new Money(ONE, Currency.getInstance("PLN")));
+        return new CardFeesService(feePolicy);
     }
 
     @Bean
     public ChargeService paymentService(CardRepository cardRepository, CardApplicationEventsPublisher cardApplicationEventsPublisher,
-                                        TransactionFeePolicy transactionFeePolicy, TimeProvider timeProvider) {
-        return new ChargeService(cardRepository, cardApplicationEventsPublisher, transactionFeePolicy, timeProvider);
+                                        CardFeesService cardFeesService, TimeProvider timeProvider) {
+        return new ChargeService(cardFeesService, cardRepository, cardApplicationEventsPublisher, timeProvider);
     }
 
     @Bean
